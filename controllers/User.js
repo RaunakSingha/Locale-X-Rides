@@ -5,7 +5,7 @@ import Utility from './Utility';
 const User = {
 
     async signUp(req, res) {
-        if (!req.body.email || !req.body.password || !req.body.name) {
+        if (!req.body.email || !req.body.password) {
             return res.status(400).send({ 'message': 'Some values are missing' });
         }
         if (!Utility.isValidEmail(req.body.email)) {
@@ -13,12 +13,11 @@ const User = {
         }
         const hashPassword = Utility.hashPassword(req.body.password);
 
-        const q = `INSERT INTO users(id, name, email, password) 
-        VALUES($1, $2, $3, $4) returning *`;
+        const q = `INSERT INTO users(id, email, password) 
+        VALUES($1, $2, $3) returning *`;
 
         const values = [
             uuidv4(),
-            req.body.name,
             req.body.email,
             hashPassword,
         ];

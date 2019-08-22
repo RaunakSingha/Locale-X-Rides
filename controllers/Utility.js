@@ -1,7 +1,6 @@
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 import keys from '../config/keys';
-import db from '../db';
 
 const Utility = {
 
@@ -24,7 +23,7 @@ const Utility = {
         const token = jwt.sign({
             userId: id
         },
-            keys.SECRET, { expiresIn: '5d' }
+            keys.SECRET, { expiresIn: '15d' }
         );
         return token;
     }
